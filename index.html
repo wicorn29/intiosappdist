@@ -1,89 +1,159 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0a120f">
-<meta name="description" content="Wicorn29 internal iOS application distribution">
-<title>Wicorn29 - iOS Distribution</title>
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css">
+<title>Wicorn29 | Feather Installer</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 18px;
+    color: #222;
+}
+.warning {
+    border: 3px solid red;
+    padding: 18px;
+    color: #a00000;
+    background: #fff0f0;
+}
+.warning h2 {
+    font-size: 24px;
+    margin-top: 0;
+}
+.warning p {
+    line-height: 1.5;
+}
+button {
+    padding: 13px 22px;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+small {
+    color: #666;
+}
+footer {
+    margin-top: 50px;
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+    color: #777;
+    font-size: 12px;
+}
+</style>
 </head>
 <body>
 
 <header>
-  <a href="./" class="brand">
-    <span class="brand-icon">W29</span>
-    <span>
-      <strong>WICORN29</strong>
-      <small>INTERNAL SOFTWARE</small>
-    </span>
-  </a>
-  <span class="status"><i></i> PRIVATE DISTRIBUTION</span>
+    <h1>Wicorn29 Feather Installer</h1>
+    <p>Internal iOS development distribution</p>
 </header>
 
-<main>
+<hr>
 
-<section class="hero">
-  <div class="eyebrow">IOS APPLICATION CATALOG / W29-NET</div>
-  <h1>Software,<br><span>delivered.</span></h1>
-  <p>
-    Internal iPhone and iPad applications distributed
-    directly from Wicorn29 infrastructure.
-  </p>
-  <div class="stats">
-    <span>STATIC DISTRIBUTION PORTAL</span>
-    <span id="app-count">LOADING</span>
-  </div>
+<section class="warning">
+    <h2>⚠ WARNING: WICORN29 DEVELOPMENT DEVICES ONLY</h2>
+
+    <p>
+        This installation is intended exclusively for
+        authorized Wicorn29 development devices.
+    </p>
+
+    <p>
+        <strong>
+            This IPA is signed for Wicorn29 development devices.
+            It will NOT be signed for anyone else.
+        </strong>
+    </p>
+
+    <p>
+        <strong>
+            If you don't know if you have a development device,
+            YOU DON'T HAVE ONE.
+        </strong>
+    </p>
+
+    <p>
+        Do not attempt installation unless your device has
+        been explicitly authorized for this development build.
+    </p>
 </section>
 
-<section class="filters">
-  <input id="search" type="search" placeholder="Search applications...">
-  <select id="category">
-    <option value="">All categories</option>
-  </select>
-</section>
+<h2>Feather</h2>
 
-<section class="catalog">
-  <div class="section-head">
-    <div>
-      <small>AVAILABLE BUILDS</small>
-      <h2>Application catalog</h2>
-    </div>
-    <span id="catalog-status">W29 SOFTWARE</span>
-  </div>
+<p>
+    <strong>Package:</strong> feather.ipa<br>
+    <strong>Distribution:</strong> Wicorn29 Development<br>
+    <strong>Installation:</strong> Apple OTA
+</p>
 
-  <div id="apps" class="apps">
-    <p class="loading">Loading application catalog...</p>
-  </div>
-</section>
+<p>
+    This installer distributes the existing signed IPA.
+    It does not modify or re-sign the application.
+</p>
 
-<section class="info">
-  <strong>Installation requirements</strong>
-  <p>
-    Applications must have a valid Apple signature and provisioning
-    profile. Ad Hoc builds must authorize the target device.
-    This portal does not sign applications or bypass Apple's
-    signing and distribution requirements.
-  </p>
-</section>
+<hr>
 
-</main>
+<h3>Installation authorization</h3>
+
+<label>
+    <input type="checkbox" id="acknowledge">
+    I understand that this installation is restricted to
+    authorized Wicorn29 development devices.
+</label>
+
+<br><br>
+
+<button id="install" disabled>
+    Install Feather
+</button>
+
+<p id="status"></p>
 
 <footer>
-  <strong>WICORN<span>29</span></strong>
-  <span>INTERNAL SOFTWARE DISTRIBUTION</span>
-  <span id="year"></span>
+    Wicorn29 Internal Software<br>
+    Unauthorized distribution prohibited.
 </footer>
 
-<dialog id="details">
-  <div class="dialog-head">
-    <small>APPLICATION DETAILS</small>
-    <button id="close" aria-label="Close">×</button>
-  </div>
-  <div id="detail-content"></div>
-</dialog>
+<script>
+const checkbox = document.getElementById("acknowledge");
+const button = document.getElementById("install");
+const status = document.getElementById("status");
 
-<script src="app.js"></script>
+const secure = location.protocol === "https:";
+
+if (!secure) {
+    status.textContent =
+        "ERROR: This installer requires HTTPS.";
+    button.disabled = true;
+}
+
+checkbox.addEventListener("change", () => {
+    button.disabled = !checkbox.checked || !secure;
+});
+
+button.addEventListener("click", () => {
+    if (!checkbox.checked || !secure) return;
+
+    const manifest = new URL(
+        "manifest.plist",
+        window.location.href
+    ).href;
+
+    const installURL =
+        "itms-services://?action=download-manifest&url=" +
+        encodeURIComponent(manifest);
+
+    status.textContent = "Opening Apple's installation service...";
+
+    window.location.href = installURL;
+});
+</script>
+
 </body>
 </html>
