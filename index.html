@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a120f">
+<meta name="description" content="Wicorn29 internal iOS application distribution">
+<title>Wicorn29 - iOS Distribution</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <a href="./" class="brand">
+    <span class="brand-icon">W29</span>
+    <span>
+      <strong>WICORN29</strong>
+      <small>INTERNAL SOFTWARE</small>
+    </span>
+  </a>
+  <span class="status"><i></i> PRIVATE DISTRIBUTION</span>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="eyebrow">IOS APPLICATION CATALOG / W29-NET</div>
+  <h1>Software,<br><span>delivered.</span></h1>
+  <p>
+    Internal iPhone and iPad applications distributed
+    directly from Wicorn29 infrastructure.
+  </p>
+  <div class="stats">
+    <span>STATIC DISTRIBUTION PORTAL</span>
+    <span id="app-count">LOADING</span>
+  </div>
+</section>
+
+<section class="filters">
+  <input id="search" type="search" placeholder="Search applications...">
+  <select id="category">
+    <option value="">All categories</option>
+  </select>
+</section>
+
+<section class="catalog">
+  <div class="section-head">
+    <div>
+      <small>AVAILABLE BUILDS</small>
+      <h2>Application catalog</h2>
+    </div>
+    <span id="catalog-status">W29 SOFTWARE</span>
+  </div>
+
+  <div id="apps" class="apps">
+    <p class="loading">Loading application catalog...</p>
+  </div>
+</section>
+
+<section class="info">
+  <strong>Installation requirements</strong>
+  <p>
+    Applications must have a valid Apple signature and provisioning
+    profile. Ad Hoc builds must authorize the target device.
+    This portal does not sign applications or bypass Apple's
+    signing and distribution requirements.
+  </p>
+</section>
+
+</main>
+
+<footer>
+  <strong>WICORN<span>29</span></strong>
+  <span>INTERNAL SOFTWARE DISTRIBUTION</span>
+  <span id="year"></span>
+</footer>
+
+<dialog id="details">
+  <div class="dialog-head">
+    <small>APPLICATION DETAILS</small>
+    <button id="close" aria-label="Close">×</button>
+  </div>
+  <div id="detail-content"></div>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "format": "W29-CATALOG",
+  "version": 1,
+  "apps": [
+    {
+      "id": "feather",
+      "metadata": "packages/feather/app.json",
+      "manifest": "packages/feather/manifest.plist"
+    }
+  ]
+}
